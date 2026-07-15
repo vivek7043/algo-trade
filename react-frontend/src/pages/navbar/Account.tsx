@@ -5,12 +5,7 @@ import {
   FaShieldAlt,
   FaWallet,
   FaGem,
-  FaExchangeAlt,
-  FaChartLine,
-
-
-
-  FaCopy, FaEdit, FaSave, FaTimes
+  FaChartLine
 } from "react-icons/fa";
 
 import { BiArrowBack } from "react-icons/bi";
@@ -59,9 +54,7 @@ type Trade = {
   flTm: string;
 };
 export default function AccountPage() {
-  const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
-  const [isEditing, setIsEditing] = useState(false);
   
   const [trades, setTrades] = useState<Trade[]>([]);
   const [todayProfit, setTodayProfit] = useState(0);
@@ -105,24 +98,14 @@ export default function AccountPage() {
     const payload = JSON.parse(atob(token.split(".")[1]));
     const userId = payload.user_id;
 
-    fetch(`http://localhost:8000/users/${userId}`)
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    fetch(`${API_BASE_URL}/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
       });
 
   }, []);
-
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleSave = () => {
-    // 🔐 Backend API call અહીં આવશે
-    setIsEditing(false);
-  };
 
   const TabButton = ({ id, label, icon }: { id: string; label: string; icon: React.ReactNode }) => (
     <button
