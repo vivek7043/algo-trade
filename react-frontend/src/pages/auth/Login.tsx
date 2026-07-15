@@ -61,7 +61,8 @@ export default function Login() {
   }
 
   try {
-    const res = await fetch("http://localhost:8000/auth/login", {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const res = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginForm)
@@ -98,7 +99,8 @@ export default function Login() {
     }
 
     try {
-      const res = await fetch("http://localhost:8000/auth/forgot-password", {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+      const res = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: fpEmail })
@@ -126,7 +128,8 @@ export default function Login() {
     }
 
     try {
-      const res = await fetch("http://localhost:8000/auth/reset-password", {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+      const res = await fetch(`${API_BASE_URL}/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

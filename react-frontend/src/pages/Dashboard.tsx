@@ -46,8 +46,9 @@ function Dashboard() {
 
   const loginKotak = async () => {
     const token = localStorage.getItem("token");
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     try {
-      fetch("http://127.0.0.1:8000/kotak/", {
+      fetch(`${API_BASE_URL}/kotak/`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -67,13 +68,14 @@ function Dashboard() {
 
   const getTrades = async () => {
     const token = localStorage.getItem("token");
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     if (!token) {
       toast.error("User not logged in ❌");
       return;
     }
 
-    fetch("http://127.0.0.1:8000/kotak/trades", {
+    fetch(`${API_BASE_URL}/kotak/trades`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -155,7 +157,8 @@ function Dashboard() {
       const payload = JSON.parse(atob(token.split(".")[1]));
       const userId = payload.user_id;
 
-      const res = await fetch("http://localhost:8000/config/save", {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+      const res = await fetch(`${API_BASE_URL}/config/save`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -177,7 +180,8 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/telegram/status")
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    fetch(`${API_BASE_URL}/telegram/status`)
       .then((res) => res.json())
       .then((data) => setIsTelegramConnected(data.connected));
   }, []);
@@ -185,7 +189,9 @@ function Dashboard() {
 
 
  useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8000/telegram/ws");
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const WS_URL = API_BASE_URL.replace('http', 'ws');
+    const socket = new WebSocket(`${WS_URL}/telegram/ws`);
 
     socket.onmessage = (event) => {
       setNotification(event.data);

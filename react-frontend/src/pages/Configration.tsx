@@ -174,7 +174,8 @@ export default function Configration() {
       const payload = JSON.parse(atob(token.split(".")[1]));
       const userId = payload.user_id;
 
-      const res = await fetch("http://localhost:8000/config/save", {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+      const res = await fetch(`${API_BASE_URL}/config/save`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

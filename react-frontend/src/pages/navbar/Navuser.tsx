@@ -44,7 +44,8 @@ export default function Navuser() {
   const payload = JSON.parse(atob(token.split(".")[1]));
   const userId = payload.user_id;
 
-  fetch(`http://localhost:8000/users/${userId}`)
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  fetch(`${API_BASE_URL}/users/${userId}`)
     .then((res) => res.json())
     .then((data) => {
       setUser(data);

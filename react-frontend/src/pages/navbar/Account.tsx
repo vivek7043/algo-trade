@@ -75,7 +75,8 @@ export default function AccountPage() {
 
   useEffect(() => {
     const fetchData = () => {
-      fetch("http://localhost:8000/kotak/balance")
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+      fetch(`${API_BASE_URL}/kotak/balance`)
         .then(res => res.json())
         .then(data => {
           if (data.status === "success") {

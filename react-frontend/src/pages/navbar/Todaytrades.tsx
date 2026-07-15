@@ -16,7 +16,8 @@ function Todaytrades() {
   const [trades, setTrades] = useState<Trade[]>([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/kotak/trades")
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    fetch(`${API_BASE_URL}/kotak/trades`)
       .then((res) => res.json())
       .then((data) => {
         const tradeData = Array.isArray(data) ? data : [];

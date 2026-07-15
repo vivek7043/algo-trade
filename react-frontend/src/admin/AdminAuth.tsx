@@ -15,9 +15,10 @@ function AdminAuth() {
   const handleSubmit = async (e:any) => {
     e.preventDefault();
 
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const url = isLogin
-      ? "http://localhost:8000/admin/login"
-      : "http://localhost:8000/admin/register";
+      ? `${API_BASE_URL}/admin/login`
+      : `${API_BASE_URL}/admin/register`;
 
     const body = isLogin
       ? { contact, password }

@@ -14,7 +14,8 @@ function AdminDash() {
   const [filter, setFilter] = useState("all")
 
   const fetchUsers = async () => {
-    const res = await fetch("http://127.0.0.1:8000/users/");
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const res = await fetch(`${API_BASE_URL}/users/`);
     const data = await res.json();
     setUsers(Array.isArray(data) ? data : []);
   };
@@ -24,7 +25,8 @@ function AdminDash() {
   }, []);
 
   const toggleUser = async (user_id: string) => {
-    await fetch(`http://127.0.0.1:8000/users/toggle-user/${user_id}`, {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    await fetch(`${API_BASE_URL}/users/toggle-user/${user_id}`, {
       method: "PUT"
     });
 
