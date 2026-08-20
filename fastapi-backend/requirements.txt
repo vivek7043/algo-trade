@@ -13,3 +13,4 @@ python-jose[cryptography]
 passlib[bcrypt]
 pydantic[email]
 wsproto
+argon2-cffi>=23.1.0
